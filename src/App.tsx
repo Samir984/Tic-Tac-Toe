@@ -30,7 +30,7 @@ function Header({ setMode }: HeaderProps) {
 }
 
 function App() {
-  const [gameMode, setGameMode] = useState<GameModeType>("single");
+  const [gameMode, setGameMode] = useState<GameModeType>("dual");
 
   return (
     <div className="app__container">
@@ -161,27 +161,17 @@ function TicTacToeEachBox({
   dispatch,
   field,
   gameState,
-  mode,
 }: TicTacToeEachBoxProps) {
   const [symbol, setSymbol] = useState<string>("");
 
   const nextMove = function () {
     const symbolString = count % 2 === 0 ? "✔️" : "❌";
-    if (mode === "dual") {
-      dispatch({
-        type: "nextMove",
-        payload: { count: count + 1, symbol: symbolString, field: field },
-      });
-      setSymbol(symbolString);
-    } else {
-      dispatch({
-        type: "nextMove",
-        payload: { count: count + 1, symbol: symbolString, field: field },
-      });
-      computerMove();
 
-      setSymbol(symbolString);
-    }
+    dispatch({
+      type: "nextMove",
+      payload: { count: count + 1, symbol: symbolString, field: field },
+    });
+    setSymbol(symbolString);
   };
 
   return (
@@ -190,6 +180,6 @@ function TicTacToeEachBox({
     </button>
   );
 }
-function computerMove() {}
+// function computerMove() {}
 
 export default App;
