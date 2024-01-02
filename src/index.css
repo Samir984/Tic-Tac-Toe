@@ -64,6 +64,14 @@ body {
   background-color: rgb(28, 26, 26);
 }
 
+.game__win {
+  margin-top: 40px;
+  color: green;
+  font-weight: bolder;
+  font-size: 20px;
+  text-align: center;
+}
+
 @media (max-width: 640px) {
   .app__container {
     width: 400px;

@@ -9,6 +9,7 @@ type TicTacToeEachBoxProps = {
   count: number;
   dispatch: React.Dispatch<ReducerAction>;
   field: number;
+  gameState: string;
 };
 
 function Header({ setMode }: HeaderProps) {
@@ -40,6 +41,7 @@ function App() {
 type GameReducer = {
   count: number;
   gameArray: string[];
+  gameState: string;
 };
 
 type ReducerAction = {
@@ -50,12 +52,13 @@ type ReducerAction = {
 const initialState: GameReducer = {
   count: 0,
   gameArray: ["", "", "", "", "", "", "", "", ""],
+  gameState: "",
 };
 
 const reducer = function (state: GameReducer, action: ReducerAction) {
   switch (action.type) {
-    case "click":
-      return {
+    case "click": {
+      const temp = {
         ...state,
         count: action.payload.count,
         gameArray: [
@@ -64,31 +67,84 @@ const reducer = function (state: GameReducer, action: ReducerAction) {
           ...state.gameArray.slice(action.payload.field),
         ],
       };
+
+      const checkForWinner = function (gameArray: string[]) {
+        for (let i = 0; i < 3; i++) {
+          if (
+            gameArray[i * 3] !== "" &&
+            gameArray[i * 3] === gameArray[i * 3 + 1] &&
+            gameArray[i * 3] === gameArray[i * 3 + 2]
+          ) {
+            state.gameState = gameArray[i];
+          }
+        }
+
+        // Check columns
+        for (let i = 0; i < 3; i++) {
+          if (
+            gameArray[i] !== "" &&
+            gameArray[i] === gameArray[i + 3] &&
+            gameArray[i] === gameArray[i + 6]
+          ) {
+            state.gameState = gameArray[i];
+          }
+        }
+
+        // Check diagonals
+        if (
+          gameArray[0] !== "" &&
+          gameArray[0] === gameArray[4] &&
+          gameArray[0] === gameArray[8]
+        ) {
+          state.gameState = gameArray[0];
+        }
+        if (
+          gameArray[2] !== "" &&
+          gameArray[2] === gameArray[4] &&
+          gameArray[2] === gameArray[6]
+        ) {
+          state.gameState = gameArray[2];
+        }
+      };
+
+      checkForWinner(temp.gameArray);
+
+      return temp;
+    }
     default:
       return state;
   }
 };
 
 function TicTacToeTable() {
-  const [{ count, gameArray }, dispatch] = useReducer(reducer, initialState);
-  console.log(gameArray);
+  const [{ count, gameState }, dispatch] = useReducer(reducer, initialState);
+
   return (
-    <div className="game__table">
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((ele) => {
-        return (
-          <TicTacToeEachBox
-            key={ele}
-            count={count}
-            dispatch={dispatch}
-            field={ele}
-          />
-        );
-      })}
-    </div>
+    <>
+      <div className="game__table">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((ele) => {
+          return (
+            <TicTacToeEachBox
+              key={ele}
+              count={count}
+              dispatch={dispatch}
+              field={ele}
+              gameState={gameState}
+            />
+          );
+        })}
+      </div>
+      {gameState && <div className="game__win">{gameState} won the game </div>}
+    </>
   );
 }
 
-function TicTacToeEachBox({ count, dispatch, field }: TicTacToeEachBoxProps) {
+function TicTacToeEachBox({
+  count,
+  dispatch,
+  field,
+  gameState,
+}: TicTacToeEachBoxProps) {
   const [symbol, setSymbol] = useState<string>("");
 
   return (
@@ -101,7 +157,7 @@ function TicTacToeEachBox({ count, dispatch, field }: TicTacToeEachBoxProps) {
         });
         setSymbol(symbolString);
       }}
-      disabled={symbol !== ""}
+      disabled={symbol !== "" || gameState !== ""}
     >
       {symbol}
     </button>
