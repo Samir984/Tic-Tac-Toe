@@ -19,9 +19,10 @@ function Header({ setMode }: HeaderProps) {
       <select
         className="app__setting"
         onChange={(e) => setMode(e.target.value as GameModeType)}
+        defaultValue={"dual"}
       >
-        <option value="single">singlePlayer</option>
         <option value="dual">Dual</option>
+        <option value="single">singlePlayer</option>
       </select>
     </header>
   );
