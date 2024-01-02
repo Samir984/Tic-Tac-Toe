@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(17, 17, 17);
+  font-family: sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.app__container {
+  height: 600px;
+  width: 600px;
+  padding: 10px 8px;
+}
+
+.app__heeader {
+  display: flex;
+  padding: 4px 0;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.app__logo {
+  color: white;
+  font-size: 24px;
+}
+.app__setting {
+  background-color: white;
+  padding: 6px 8px;
+  width: 140px;
+  outline: none;
+}
+
+.game__table {
+  display: grid;
+  width: 400px;
+  height: 400px;
+  gap: 2px;
+  margin: 0 auto;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.game__table button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+  font-size: 60px;
+  color: red;
+  height: 130px;
+  background-color: rgb(46, 46, 46);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.game__table button:hover,
+.game__table button:active {
+  background-color: rgb(28, 26, 26);
+}
+
+@media (max-width: 640px) {
+  .app__container {
+    width: 400px;
+  }
+  .game__table {
+    width: 390px;
+  }
+}
+
+@media (max-width: 440px) {
+  .app__container {
+    width: 300px;
+  }
+  .game__table {
+    width: 270px;
+    height: auto;
+  }
+  .game__table button {
+    width: 90px;
+    font-size: 40px;
+    height: 90px;
+  }
+}
