@@ -76,53 +76,53 @@ const reducer = function (state: GameReducer, action: ReducerAction) {
           gameArray[0] === gameArray[1] &&
           gameArray[1] == gameArray[2]
         ) {
-          state.gameState = gameArray[0];
+          temp.gameState = gameArray[0];
         } else if (
           gameArray[3] !== "" &&
           gameArray[3] === gameArray[4] &&
           gameArray[4] === gameArray[5]
         ) {
-          state.gameState = gameArray[3];
+          temp.gameState = gameArray[3];
         } else if (
           gameArray[6] !== "" &&
           gameArray[6] === gameArray[7] &&
           gameArray[7] === gameArray[8]
         ) {
-          state.gameState = gameArray[6];
+          temp.gameState = gameArray[6];
         } else if (
           gameArray[0] !== "" &&
           gameArray[0] === gameArray[3] &&
           gameArray[3] === gameArray[6]
         ) {
-          state.gameState = gameArray[0];
+          temp.gameState = gameArray[0];
         } else if (
           gameArray[1] === gameArray[4] &&
           gameArray[4] === gameArray[7] &&
           gameArray[1] !== ""
         ) {
-          state.gameState = gameArray[1];
+          temp.gameState = gameArray[1];
         } else if (
           gameArray[2] !== "" &&
           gameArray[2] === gameArray[5] &&
           gameArray[5] === gameArray[8]
         ) {
-          state.gameState = gameArray[2];
+          temp.gameState = gameArray[2];
         } else if (
           gameArray[0] !== "" &&
           gameArray[0] === gameArray[4] &&
           gameArray[4] === gameArray[8]
         ) {
-          state.gameState = gameArray[0];
+          temp.gameState = gameArray[0];
         } else if (
           gameArray[2] !== "" &&
           gameArray[2] === gameArray[4] &&
           gameArray[4] === gameArray[6]
         ) {
-          state.gameState = gameArray[2];
+          temp.gameState = gameArray[2];
         }
       };
       checkForWinner(temp.gameArray);
-      return temp;
+      return { ...temp };
     }
     default:
       return state;
