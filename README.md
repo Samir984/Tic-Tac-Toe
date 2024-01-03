@@ -2,4 +2,5 @@
 
 ts-pratice
 
-(link)[https://tictactoe984.netlify.app/]
+[link](https://tictactoe984.netlify.app/)
+
